@@ -110,8 +110,8 @@ EOF
 fi
 
 # Установка зависимостей и сборка
-log_info "Установка зависимостей Backend..."
-npm install --omit=dev || npm ci --omit=dev
+log_info "Установка зависимостей Backend (это может занять несколько минут)..."
+npm install --omit=dev
 
 log_info "Сборка Backend..."
 npm run build
@@ -133,8 +133,8 @@ VITE_STRAPI_URL=http://$SERVER_IP:1337
 EOF
 
 # Установка зависимостей и сборка
-log_info "Установка зависимостей Frontend..."
-npm install || npm ci
+log_info "Установка зависимостей Frontend (это может занять несколько минут)..."
+npm install
 
 log_info "Сборка Frontend..."
 npm run build
