@@ -1,0 +1,104 @@
+{
+  "kind": "collectionType",
+  "collectionName": "places",
+  "info": {
+    "singularName": "place",
+    "pluralName": "places",
+    "displayName": "Place",
+    "description": "Tourist attractions and places of interest"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "nameRu": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "descriptionRu": {
+      "type": "text",
+      "required": true
+    },
+    "category": {
+      "type": "string",
+      "required": true
+    },
+    "categoryRu": {
+      "type": "string",
+      "required": true
+    },
+    "rating": {
+      "type": "decimal",
+      "min": 0,
+      "max": 5,
+      "default": 0
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "addressRu": {
+      "type": "string",
+      "required": true
+    },
+    "openingHours": {
+      "type": "string"
+    },
+    "openingHoursRu": {
+      "type": "string"
+    },
+    "entryFee": {
+      "type": "string"
+    },
+    "entryFeeRu": {
+      "type": "string"
+    },
+    "latitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "longitude": {
+      "type": "decimal",
+      "required": true
+    },
+    "amenities": {
+      "type": "json",
+      "default": []
+    },
+    "isOpen": {
+      "type": "boolean",
+      "default": true
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "place"
+    }
+  }
+}

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Достопримечательности Сыктывкара - Syktyvkar Travel</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem", 
+                        "lg": "0.5rem", 
+                        "xl": "0.75rem", 
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col font-display">
+<!-- Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-[#101922]/90 backdrop-blur-md">
+<div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+<div class="flex items-center gap-3">
+<div class="flex size-8 items-center justify-center rounded bg-primary/10 text-primary">
+<span class="material-symbols-outlined">travel_explore</span>
+</div>
+<h1 class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Сыктывкар Travel</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Главная</a>
+<a class="text-sm font-medium text-primary" href="#">Достопримечательности</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">Маршруты</a>
+<a class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary transition-colors" href="#">О городе</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition-all hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-slate-900">
+                    Войти
+                </button>
+<!-- Mobile menu button placeholder -->
+<button class="md:hidden flex items-center justify-center text-slate-500 hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1">
+<!-- Hero Section with Title, Search, and Chips -->
+<section class="relative bg-white dark:bg-[#101922] pb-8 pt-12 shadow-sm">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+<div class="max-w-2xl space-y-3">
+<h2 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                            Достопримечательности
+                        </h2>
+<p class="text-lg text-slate-600 dark:text-slate-400">
+                            Исследуйте историю, культуру и природу столицы Республики Коми. Откройте для себя лучшие места для прогулок и фотосессий.
+                        </p>
+</div>
+</div>
+<!-- Search and Filters Container -->
+<div class="mt-8 flex flex-col gap-4 lg:flex-row lg:items-center">
+<!-- Search Bar -->
+<div class="relative w-full max-w-md">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-slate-400">search</span>
+</div>
+<input class="block w-full rounded-lg border-0 bg-slate-100 dark:bg-slate-800 py-3 pl-10 pr-4 text-slate-900 dark:text-white placeholder:text-slate-500 focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6" placeholder="Поиск по названию..." type="text"/>
+</div>
+<!-- Chips / Categories -->
+<div class="flex flex-1 gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
+<button class="whitespace-nowrap rounded-full bg-primary px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary/90">
+                            Все места
+                        </button>
+<button class="whitespace-nowrap rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700">
+                            Музеи
+                        </button>
+<button class="whitespace-nowrap rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700">
+                            Парки и Скверы
+                        </button>
+<button class="whitespace-nowrap rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700">
+                            Архитектура
+                        </button>
+<button class="whitespace-nowrap rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700">
+                            Памятники
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Sights Grid Section -->
+<section class="py-12">
+<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+<!-- Card 1 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Tall brick fire watchtower against a blue sky" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZj136NJrDSHRQ9FwT4z6GyMz0AjqnuRXP41-tQKy-uKgrMe1sMSFp3n1rG6v_i8Q9BG8P7R4sLYbvPvQn8Ibh7kt7iUpbh6skvpELvSlwpOp_s4r0tl067nQ0JTdC6G0m8TWwjO9o1ijoCaTxb-IGcVwaeo-U365_bD7jwL3ET4STk-uubAXitDh_J4fVlNfMQ-aMFVTlnpocGZhWPCJlrX-kGDX66Ca0PiW9O7thRxRlOr_SnrOIdED4zrCeipVP61sCj9K3fp_V');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-amber-50 dark:bg-amber-900/30 px-2 py-1 text-xs font-medium text-amber-700 dark:text-amber-400 ring-1 ring-inset ring-amber-600/20">Архитектура</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.8
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Пожарная каланча</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Исторический символ города, памятник архитектуры XIX века, возвышающийся над старым центром.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Large city square with government building and trees" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWP3s7hwSul3MLXuyHgcaT_ZDeFvEI8Zb1c5GCEzSVMJ4M0o6Z_S66vgBta8hhtB2mh7uIN8L562LBrtQ4R2yE0k8mwJAt23wDE2dGgCrMDf8Fx2T6TbK1ZZn1GrApnXsov-uzJ0RHXlXhquzu-gKf-lOmoOs4hCq6w0W-L1bP9Ju82QdVSYlFeAMjrLFvER9wj7ag7WG40_9V6mn9Qk5SK-QJh1WvE2nk50X-qNJFyyz2XZ7u2KIr1LiiDQANmKv2jKMpSdun2r4h');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/30 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-400 ring-1 ring-inset ring-blue-700/10">Места</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.9
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Стефановская площадь</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Главная площадь города, место проведения праздников, парадов и городских гуляний.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Narrow alleyway with artistic decorations" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvP5VVlXsSzcbCt3qD7rn1TSW0a1hPpiFEIzs23EdAm4PoXMg_X-h0cp3Y4jA6QWpIPukzvyKy6suc_ncFTDA_tBqbQx6jox6VpM0pQmRzX1T3N4K5qBcNUSqENZ6WzEmPf_mOAc9hJBMRN_FTc5SDMk8vUV0Ssgp2d6IUXDiARriNAMYroxtWHdv4k8lnT9h6h80dJ0nIrx4A4oeR7AAGtO-XoxrCb3ETx7XTyu-5q74YQd7sk6PXwVQUgGyxUwEUljhuEdIZNkYY');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-purple-50 dark:bg-purple-900/30 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-400 ring-1 ring-inset ring-purple-700/10">Арт-объект</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.5
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Грибной переулок</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Уникальный арт-объект, известный как самый узкий переулок в мире, созданный местными активистами.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Interior of a museum with historical artifacts" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBaa7whZO788JfwCn2YVz3TLK8LjM7fTH4TEacZxcEse9hlhkCOMkYvBzbwEcszC24Lu0p58k9rWNUhwtaFLNjC0wyNwERmzxfnejFXAA4aAT8Bd01y2s1t2Iyp7ZFKlasa8vh6lOTB-RgJI-qktvAT50OWWRIqrTAtkywRVtxyJL3Y84duone_JyRS4Os-vG0MLeAsZv3fXc70LTsaDQsQvJz__qeDZCOLylJz04fPidqlpn78oztC8jiSIRL7mn0MwNJoB3cbWraR');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400 ring-1 ring-inset ring-emerald-600/20">Музеи</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.7
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Национальный музей РК</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Крупнейший музейный комплекс региона, рассказывающий о богатой природе и этнографии Коми края.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="White cathedral with golden domes" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCW9LlY6Xph3BRMsBO3CPY1_eSqljflxctwCw4taOpVHxbF43lNzFFoJHgAMZ14obBClT1pQjJm81PFRWix0UkeKjC6gqFJ4T44ryeLgknDdsflyONKelvPaNXsAFUD5bk2OsW1K2gmIGwmyNPoYMzAIhkqnU5OB6WxLOxgbZ2G0RXHk52CfoS1WtRJzs49J1gJHcNDPEJUpvroQLyil0qNTaWKEgSsNcU2tALjjtiYN5IBJ0pNAeB8-DpZMTNbpw6tfO92QsU4cKf2');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-amber-50 dark:bg-amber-900/30 px-2 py-1 text-xs font-medium text-amber-700 dark:text-amber-400 ring-1 ring-inset ring-amber-600/20">Архитектура</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.9
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Свято-Стефановский собор</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Величественный православный храм с золотыми куполами, духовный центр города.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Green park path lined with trees in autumn" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBtOluqbmTcGHQtOfjhqzFuQK-Imp-XptpYGn0SMdyMdFlruMLvFGGk6qQ3NJ8CX4vJuyK_NOESc5znTYqW6e-m6CaQO47usWeWzSV_1TdZQ3qTWk5tZj1yYbVwNmlHBR96_aUGZufF7O_EcX9aaqOnipiy1FC2XGc8STVWskXDTP0-HUmZRBHGEx-RAe2yVQh_DjLaDpBk-8GVvEi6p9sfug5AHRQsviYk0kSiCSutFR6_yCCUFS0gK0xACNA9oEFlPpIMmL0pSmbj');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-green-50 dark:bg-green-900/30 px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400 ring-1 ring-inset ring-green-600/20">Парки</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.6
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Парк имени С.М. Кирова</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Главный городской парк на берегу реки Сысолы, любимое место для прогулок и отдыха горожан.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Memorial monument with eternal flame" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDaBwJOSaL7JlcOaAqhseYTWPiTaCYzvNVeZsVvozUg4N6uYOfYeroySg_Z-jbs773tYqeK614GJIFojslHrsZ87Riw2z-OX_F28pi1qyyZH-TnNThOXYf3t3FA-6lL1Jh7vFMKWYX1QSfYYxbnfgrwQbIjZJYoNMgsXEyLN50Mvj9MoOBDLbCCKrjT1OgLeCA99DgqopyQFWqmagiixPnrbihRg3U_Ny17EUR__AsLNh3vPk8NedMeQXFFHTuHi1DEfXsiUkvXlxIj');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-red-50 dark:bg-red-900/30 px-2 py-1 text-xs font-medium text-red-700 dark:text-red-400 ring-1 ring-inset ring-red-600/20">Памятники</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.8
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Мемориал "Вечная слава"</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Мемориальный комплекс в честь воинов-сыктывкарцев, погибших в годы Великой Отечественной войны.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Card 8 -->
+<div class="group flex flex-col overflow-hidden rounded-xl bg-white dark:bg-slate-800 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg border border-slate-200 dark:border-slate-700">
+<div class="relative aspect-[4/3] w-full overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" data-alt="Classic theater building exterior with columns" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWJygCv3prSb140SMl3Q60Oi8yAjidqFSLLGTes91RNqHSwPrxtQJo9WRRLotdsNcOaZLZvene2DW2szsA_xhQm186HmKQ3vmNeKRPGbobklcs9Q5f63xoiJuPGI3mcFgf7HoZLal_gteeM5j3wEx6x8e7t5LVF_VatgJzqEcrgxJt6HsrY6v5y7J3zoVuKj3Z6h4HexexD3XydZMUqUSiVSKz702qUrYnwpN7uIw290zvBsyyxPB1wexQZCX_TiBDLBy2abLWeMx6');"></div>
+<div class="absolute top-3 right-3 rounded-full bg-white/90 p-1.5 text-slate-600 shadow-sm backdrop-blur-sm dark:bg-slate-900/90 dark:text-slate-300">
+<span class="material-symbols-outlined text-[20px] block">bookmark_border</span>
+</div>
+</div>
+<div class="flex flex-1 flex-col p-5">
+<div class="mb-2 flex items-center gap-2">
+<span class="inline-flex items-center rounded-md bg-purple-50 dark:bg-purple-900/30 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-400 ring-1 ring-inset ring-purple-700/10">Театры</span>
+<span class="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-[14px]">star</span> 4.7
+                                </span>
+</div>
+<h3 class="text-lg font-bold leading-tight text-slate-900 dark:text-white">Театр драмы им. В. Савина</h3>
+<p class="mt-2 line-clamp-2 text-sm text-slate-600 dark:text-slate-400">
+                                Старейший театр республики, где ставятся спектакли на русском и коми языках.
+                            </p>
+<div class="mt-auto pt-4">
+<a class="flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/80" href="#">
+                                    Подробнее <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More Button -->
+<div class="mt-16 flex justify-center">
+<button class="flex min-w-[200px] items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
+<span class="material-symbols-outlined">refresh</span>
+                        Загрузить еще
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="mt-auto bg-white border-t border-slate-200 dark:border-slate-800 dark:bg-[#101922]">
+<div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+<div class="md:flex md:items-center md:justify-between">
+<div class="flex justify-center md:order-2 space-x-6">
+<a class="text-slate-400 hover:text-primary" href="#">
+<span class="sr-only">VK</span>
+<svg aria-hidden="true" class="h-6 w-6" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.66 12.56c.4.4.8.8 1.18 1.18.27.27.35.53.13.88-.13.2-.42.27-.67.27h-2.18c-.46 0-.8-.22-1.12-.53-.4-.38-.76-.8-1.13-1.21-.14-.15-.3-.3-.52-.29-.27 0-.36.19-.36.43v1.36c0 .26-.09.39-.36.44l-1.04.02c-2.31 0-3.96-1.39-5.38-4.04-.6-1.13-1.13-2.3-1.63-3.48-.06-.15-.02-.3.14-.32l2.25-.01c.22 0 .42.12.5.33.45 1.19 1.04 2.33 1.69 3.42.08.14.19.16.29.04.18-.21.19-.51.19-.78V7.59c0-.46-.12-.62-.57-.66-.17-.02-.27-.12-.21-.29.13-.37.76-.57 1.77-.57.6 0 .79.08.87.52v2.85c0 .35.15.47.41.07.72-1.11 1.34-2.27 1.88-3.46.12-.27.32-.39.61-.39h2.18c.58 0 .66.21.46.73-.55 1.32-1.2 2.58-1.93 3.79-.17.27-.18.42.04.63z"></path>
+</svg>
+</a>
+</div>
+<div class="mt-8 md:mt-0 md:order-1">
+<p class="text-center text-xs leading-5 text-slate-500 dark:text-slate-400">
+                        © 2024 Сыктывкар Travel. Все права защищены.
+                    </p>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
