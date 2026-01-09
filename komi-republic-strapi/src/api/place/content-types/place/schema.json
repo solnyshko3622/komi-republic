@@ -24,23 +24,11 @@
       "type": "text",
       "required": true
     },
-    "descriptionRu": {
-      "type": "text",
-      "required": true
-    },
-    "category": {
-      "type": "string",
-      "required": true
-    },
-    "categoryRu": {
-      "type": "string",
-      "required": true
-    },
     "rating": {
       "type": "decimal",
+      "default": 0,
       "min": 0,
-      "max": 5,
-      "default": 0
+      "max": 5
     },
     "image": {
       "type": "media",
@@ -62,43 +50,23 @@
       "type": "string",
       "required": true
     },
-    "addressRu": {
-      "type": "string",
-      "required": true
-    },
     "openingHours": {
-      "type": "string"
-    },
-    "openingHoursRu": {
       "type": "string"
     },
     "entryFee": {
       "type": "string"
     },
-    "entryFeeRu": {
-      "type": "string"
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "places"
     },
     "latitude": {
-      "type": "decimal",
-      "required": true
+      "type": "decimal"
     },
     "longitude": {
-      "type": "decimal",
-      "required": true
-    },
-    "amenities": {
-      "type": "json",
-      "default": []
-    },
-    "isOpen": {
-      "type": "boolean",
-      "default": true
-    },
-    "reviews": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::review.review",
-      "mappedBy": "place"
+      "type": "decimal"
     }
   }
 }

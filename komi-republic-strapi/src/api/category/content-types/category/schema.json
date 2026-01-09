@@ -25,6 +25,12 @@
       "type": "uid",
       "targetField": "name",
       "required": true
+    },
+    "places": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::place.place",
+      "mappedBy": "category"
     }
   }
 }

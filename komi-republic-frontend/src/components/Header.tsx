@@ -20,21 +20,12 @@ export default function Header() {
           <Link to="/attractions" className="header-nav-link">
             Достопримечательности
           </Link>
-          <a href="#" className="header-nav-link">
-            Маршруты
-          </a>
-          <a href="#" className="header-nav-link">
+          <Link to="/about" className="header-nav-link">
             О городе
-          </a>
-          <a href="#" className="header-nav-link">
-            Галерея
-          </a>
+          </Link>
         </nav>
         
         <div className="header-actions">
-          <button className="btn btn-primary">
-            <span>Планировщик</span>
-          </button>
           <button className="menu-button">
             <span className="material-symbols-outlined">menu</span>
           </button>

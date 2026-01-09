@@ -58,10 +58,10 @@ export default function AttractionCard({ attraction }: AttractionCardProps) {
         
         <h3 className="card-title">{attraction.nameRu}</h3>
         
-        <p className="card-description">{attraction.descriptionRu}</p>
+        <p className="card-description">{attraction.description}</p>
         
-        <Link to={`/attractions/${attraction.id}`} className="card-link">
-          Подробнее 
+        <Link to={`/attractions/${attraction.documentId}`} className="card-link">
+          Подробнее
           <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>arrow_forward</span>
         </Link>
       </div>

@@ -455,6 +455,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     nameRu: Schema.Attribute.String & Schema.Attribute.Required;
+    places: Schema.Attribute.Relation<'oneToMany', 'api::place.place'>;
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
@@ -476,29 +477,22 @@ export interface ApiPlacePlace extends Struct.CollectionTypeSchema {
   };
   attributes: {
     address: Schema.Attribute.String & Schema.Attribute.Required;
-    addressRu: Schema.Attribute.String & Schema.Attribute.Required;
-    amenities: Schema.Attribute.JSON & Schema.Attribute.DefaultTo<[]>;
-    category: Schema.Attribute.String & Schema.Attribute.Required;
-    categoryRu: Schema.Attribute.String & Schema.Attribute.Required;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
-    descriptionRu: Schema.Attribute.Text & Schema.Attribute.Required;
     entryFee: Schema.Attribute.String;
-    entryFeeRu: Schema.Attribute.String;
     image: Schema.Attribute.Media<'images'>;
     images: Schema.Attribute.Media<'images', true>;
-    isOpen: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
-    latitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    latitude: Schema.Attribute.Decimal;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::place.place'> &
       Schema.Attribute.Private;
-    longitude: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    longitude: Schema.Attribute.Decimal;
     name: Schema.Attribute.String & Schema.Attribute.Required;
     nameRu: Schema.Attribute.String & Schema.Attribute.Required;
     openingHours: Schema.Attribute.String;
-    openingHoursRu: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     rating: Schema.Attribute.Decimal &
       Schema.Attribute.SetMinMax<
@@ -509,7 +503,6 @@ export interface ApiPlacePlace extends Struct.CollectionTypeSchema {
         number
       > &
       Schema.Attribute.DefaultTo<0>;
-    reviews: Schema.Attribute.Relation<'oneToMany', 'api::review.review'>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -540,7 +533,6 @@ export interface ApiReviewReview extends Struct.CollectionTypeSchema {
       'api::review.review'
     > &
       Schema.Attribute.Private;
-    place: Schema.Attribute.Relation<'manyToOne', 'api::place.place'>;
     publishedAt: Schema.Attribute.DateTime;
     rating: Schema.Attribute.Integer &
       Schema.Attribute.Required &

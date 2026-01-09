@@ -28,7 +28,7 @@ export default function Home() {
       <section 
         className="hero"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB6reqTgRqTQA24yo2Ia9HPErdm4wJY-JUouwJokR_tbq_9Suw7kU7WV-bBIl-DAqvCZV1PvVJoO1GbXhpKCHJNRAq3gAHwG028znTgm_PSPWRBQBL8M8FiBG6hpuIWYz_LILU0wkvqXoIV_YxtmrHAB98Euiz846k20y7venIML18z366SoR_TbtAkj1_lstKGh_cAh3f7FB_k9gjcqiIo76kPcfVnuoHEkVzkFWy8dS6WtqHmWe70Dgp0ZiMeRpXf7zEgsdzFklFU")`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://i.ytimg.com/vi/GgHeQ__khvY/maxresdefault.jpg")`
         }}
       >
         <div className="hero-content">
@@ -156,9 +156,9 @@ export default function Home() {
                   <h3 className="card-title" style={{ transition: 'color 0.2s' }}>
                     {attraction.nameRu}
                   </h3>
-                  <p className="card-description">{attraction.descriptionRu}</p>
-                  <Link to={`/attractions/${attraction.id}`} className="card-link" style={{ marginTop: '0.75rem' }}>
-                    Подробнее 
+                  <p className="card-description">{attraction.description}</p>
+                  <Link to={`/attractions/${attraction.documentId}`} className="card-link" style={{ marginTop: '0.75rem' }}>
+                    Подробнее
                     <span className="material-symbols-outlined" style={{ fontSize: '14px', marginLeft: '0.25rem' }}>arrow_forward</span>
                   </Link>
                 </div>

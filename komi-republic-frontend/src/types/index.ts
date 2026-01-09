@@ -2,27 +2,20 @@
 
 export interface Attraction {
   id: string;
+  documentId: string;
   name: string;
   nameRu: string;
   description: string;
-  descriptionRu: string;
   category: string;
   categoryRu: string;
   rating: number;
   image: string;
   images: string[];
   address: string;
-  addressRu: string;
-  openingHours: string;
-  openingHoursRu: string;
-  entryFee: string;
-  entryFeeRu: string;
-  coordinates: {
-    lat: number;
-    lng: number;
-  };
-  amenities: string[];
-  isOpen?: boolean;
+  openingHours?: string;
+  entryFee?: string;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface Category {

@@ -101,39 +101,32 @@ class ApiService {
   }
 
   // Transform Strapi place to Attraction
-  private transformPlace(entity: StrapiEntity<StrapiPlace>): Attraction {
-    // Strapi v5 может возвращать данные напрямую или через attributes
-    const data = entity.attributes || entity;
-    const { id } = entity;
+  private transformPlace(entity: any): Attraction {
+    // Strapi v5 возвращает данные напрямую на верхнем уровне
+    const id = entity.id;
+    const documentId = entity.documentId || id.toString();
     
-    const mainImage = data.image?.data?.attributes?.url || data.image?.url;
-    const additionalImages = data.images?.data?.map((img: any) =>
-      this.getImageUrl(img.attributes?.url || img.url)
+    const mainImage = entity.image?.url;
+    const additionalImages = entity.images?.map((img: any) =>
+      this.getImageUrl(img.url)
     ) || [];
 
     return {
       id: id.toString(),
-      name: data.name || '',
-      nameRu: data.nameRu || '',
-      description: data.description || '',
-      descriptionRu: data.descriptionRu || '',
-      category: data.category || '',
-      categoryRu: data.categoryRu || '',
-      rating: data.rating || 0,
+      documentId: documentId,
+      name: entity.name || '',
+      nameRu: entity.nameRu || '',
+      description: entity.description || '',
+      category: entity.category?.slug || '',
+      categoryRu: entity.category?.nameRu || '',
+      rating: entity.rating || 0,
       image: this.getImageUrl(mainImage),
       images: additionalImages,
-      address: data.address || '',
-      addressRu: data.addressRu || '',
-      openingHours: data.openingHours || '',
-      openingHoursRu: data.openingHoursRu || '',
-      entryFee: data.entryFee || '',
-      entryFeeRu: data.entryFeeRu || '',
-      coordinates: {
-        lat: data.latitude || 0,
-        lng: data.longitude || 0,
-      },
-      amenities: data.amenities || [],
-      isOpen: data.isOpen !== false,
+      address: entity.address || '',
+      openingHours: entity.openingHours,
+      entryFee: entity.entryFee,
+      latitude: entity.latitude,
+      longitude: entity.longitude,
     };
   }
 
@@ -177,7 +170,7 @@ class ApiService {
 
       // Filter by category if provided
       if (category && category !== 'all') {
-        params.append('filters[category][$eq]', category);
+        params.append('filters[category][slug][$eq]', category);
       }
 
       // Search filter
@@ -202,13 +195,13 @@ class ApiService {
     }
   }
 
-  async getAttractionById(id: string): Promise<Attraction | null> {
+  async getAttractionById(documentId: string): Promise<Attraction | null> {
     try {
       const params = new URLSearchParams({
         'populate': '*',
       });
 
-      const response = await fetch(`${this.apiUrl}/places/${id}?${params.toString()}`);
+      const response = await fetch(`${this.apiUrl}/places/${documentId}?${params.toString()}`);
       
       if (!response.ok) {
         if (response.status === 404) return null;

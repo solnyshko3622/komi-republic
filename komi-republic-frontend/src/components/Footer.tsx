@@ -27,40 +27,17 @@ export default function Footer() {
                 <Link to="/attractions" className="footer-link">Достопримечательности</Link>
               </li>
               <li>
-                <a href="#" className="footer-link">Маршруты</a>
-              </li>
-              <li>
                 <a href="#" className="footer-link">О городе</a>
               </li>
             </ul>
           </div>
           
-          <div className="footer-section">
-            <h4>Информация</h4>
-            <ul className="footer-links">
-              <li>
-                <a href="#" className="footer-link">Контакты</a>
-              </li>
-              <li>
-                <a href="#" className="footer-link">Карта сайта</a>
-              </li>
-              <li>
-                <a href="#" className="footer-link">Политика конфиденциальности</a>
-              </li>
-            </ul>
-          </div>
           
           <div className="footer-section">
             <h4>Социальные сети</h4>
             <div className="footer-social">
               <a href="#" className="social-icon">
-                <span className="material-symbols-outlined">public</span>
-              </a>
-              <a href="#" className="social-icon">
                 <span className="material-symbols-outlined">send</span>
-              </a>
-              <a href="#" className="social-icon">
-                <span className="material-symbols-outlined">smart_display</span>
               </a>
             </div>
           </div>
@@ -68,7 +45,10 @@ export default function Footer() {
         
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © 2024 Сыктывкар Гид. Все права защищены.
+            © 2024 Сыктывкар Гид.
+          </p>
+          <p className="footer-copyright">
+            Все права защищены.
           </p>
         </div>
       </div>

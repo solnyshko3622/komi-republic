@@ -29,12 +29,6 @@
     "date": {
       "type": "datetime",
       "required": true
-    },
-    "place": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::place.place",
-      "inversedBy": "reviews"
     }
   }
 }

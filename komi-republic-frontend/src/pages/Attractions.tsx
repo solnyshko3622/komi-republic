@@ -50,32 +50,33 @@ export default function Attractions() {
         subtitle="Исследуйте историю, культуру и природу столицы Республики Коми. Откройте для себя лучшие места для прогулок и фотосессий."
       />
 
-      {/* Search and Filters Container */}
-      <section className="search-filters">
-        <div className="search-input-wrapper">
-          <div className="search-icon">
-            <span className="material-symbols-outlined">search</span>
+      <section className="search">
+        <div className="search-filters">
+          <div className="search-input-wrapper">
+            <div className="search-icon">
+              <span className="material-symbols-outlined">search</span>
+            </div>
+            <input 
+              className="search-input"
+              placeholder="Поиск по названию..."
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
-          <input 
-            className="search-input"
-            placeholder="Поиск по названию..."
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        
-        {/* Category Chips */}
-        <div className="filter-chips">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.slug)}
-              className={`filter-chip ${selectedCategory === category.slug ? 'active' : ''}`}
-            >
-              {category.nameRu}
-            </button>
-          ))}
+          
+          {/* Category Chips */}
+          <div className="filter-chips">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.slug)}
+                className={`filter-chip ${selectedCategory === category.slug ? 'active' : ''}`}
+              >
+                {category.nameRu}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
