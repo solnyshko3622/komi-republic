@@ -91,6 +91,12 @@ fi
 log_info "Деплой Backend (Strapi)..."
 cd $BACKEND_DIR
 
+# Очистка старых зависимостей для избежания конфликтов
+if [ -d "node_modules" ]; then
+    log_info "Очистка старых зависимостей Backend..."
+    rm -rf node_modules package-lock.json
+fi
+
 # Создание .env файла для production
 if [ ! -f ".env" ]; then
     log_info "Создание .env файла для Strapi..."
@@ -125,6 +131,12 @@ pm2 save
 # 8. Деплой Frontend (React + Vite)
 log_info "Деплой Frontend..."
 cd $FRONTEND_DIR
+
+# Очистка старых зависимостей для избежания конфликтов
+if [ -d "node_modules" ]; then
+    log_info "Очистка старых зависимостей Frontend..."
+    rm -rf node_modules package-lock.json
+fi
 
 # Создание .env файла для production
 log_info "Создание .env файла для Frontend..."
