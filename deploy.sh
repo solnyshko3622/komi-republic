@@ -14,11 +14,12 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Конфигурация
-PROJECT_DIR="/var/www/komi-republic"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$SCRIPT_DIR"
 FRONTEND_DIR="$PROJECT_DIR/komi-republic-frontend"
 BACKEND_DIR="$PROJECT_DIR/komi-republic-strapi"
 NGINX_CONFIG="/etc/nginx/sites-available/komi-republic"
-DOMAIN="your-domain.com"  # Замените на ваш домен
+SERVER_IP="158.160.167.43"  # Ваш IP адрес
 
 # Функция для вывода сообщений
 log_info() {
@@ -35,7 +36,7 @@ log_error() {
 
 # Проверка прав root
 if [ "$EUID" -ne 0 ]; then 
-    log_error "Запустите скрипт с правами root (sudo ./deploy.sh)"
+    log_error "Запустите скрипт с правами root (sudo ./deploy-ip.sh)"
     exit 1
 fi
 
@@ -46,7 +47,7 @@ apt-get upgrade -y
 
 # 2. Установка необходимых пакетов
 log_info "Установка необходимых пакетов..."
-apt-get install -y curl git nginx certbot python3-certbot-nginx
+apt-get install -y curl git nginx
 
 # 3. Установка Node.js (если не установлен)
 if ! command -v node &> /dev/null; then
@@ -65,19 +66,25 @@ else
     log_info "PM2 уже установлен: $(pm2 -v)"
 fi
 
-# 5. Создание директории проекта
-log_info "Создание директории проекта..."
-mkdir -p $PROJECT_DIR
-cd $PROJECT_DIR
+# 5. Проверка наличия проекта
+log_info "Проверка структуры проекта..."
+log_info "Текущая директория: $PROJECT_DIR"
 
-# 6. Клонирование или обновление репозитория
+if [ ! -d "$FRONTEND_DIR" ] || [ ! -d "$BACKEND_DIR" ]; then
+    log_error "Не найдены директории frontend или backend"
+    log_error "Убедитесь, что скрипт запущен из корня репозитория"
+    log_error "Ожидаемые директории:"
+    log_error "  - $FRONTEND_DIR"
+    log_error "  - $BACKEND_DIR"
+    exit 1
+fi
+
+log_info "✓ Структура проекта найдена"
+
+# 6. Обновление репозитория (если это git)
 if [ -d ".git" ]; then
     log_info "Обновление репозитория..."
-    git pull origin main
-else
-    log_warn "Репозиторий не найден. Пожалуйста, клонируйте его вручную:"
-    log_warn "git clone <your-repo-url> $PROJECT_DIR"
-    exit 1
+    git pull origin main || log_warn "Не удалось обновить репозиторий (возможно, есть локальные изменения)"
 fi
 
 # 7. Деплой Backend (Strapi)
@@ -99,7 +106,7 @@ DATABASE_CLIENT=sqlite
 DATABASE_FILENAME=.tmp/data.db
 NODE_ENV=production
 EOF
-    log_warn "⚠️  .env файл создан. Пожалуйста, проверьте настройки!"
+    log_warn "⚠️  .env файл создан с случайными ключами"
 fi
 
 # Установка зависимостей и сборка
@@ -120,13 +127,10 @@ log_info "Деплой Frontend..."
 cd $FRONTEND_DIR
 
 # Создание .env файла для production
-if [ ! -f ".env" ]; then
-    log_info "Создание .env файла для Frontend..."
-    cat > .env << EOF
-VITE_STRAPI_URL=http://localhost:1337
+log_info "Создание .env файла для Frontend..."
+cat > .env << EOF
+VITE_STRAPI_URL=http://$SERVER_IP:1337
 EOF
-    log_warn "⚠️  .env файл создан. Обновите VITE_STRAPI_URL если нужно!"
-fi
 
 # Установка зависимостей и сборка
 log_info "Установка зависимостей Frontend..."
@@ -135,17 +139,18 @@ npm ci
 log_info "Сборка Frontend..."
 npm run build
 
-# 9. Настройка Nginx
+# 9. Настройка Nginx для IP-адреса
 log_info "Настройка Nginx..."
-cat > $NGINX_CONFIG << 'EOF'
+cat > $NGINX_CONFIG << EOF
 server {
-    listen 80;
-    server_name your-domain.com www.your-domain.com;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name $SERVER_IP;
 
     # Frontend
     location / {
-        root /var/www/komi-republic/komi-republic-frontend/dist;
-        try_files $uri $uri/ /index.html;
+        root $FRONTEND_DIR/dist;
+        try_files \$uri \$uri/ /index.html;
         
         # Кэширование статических файлов
         location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
@@ -158,23 +163,23 @@ server {
     location /api {
         proxy_pass http://localhost:1337;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
     }
 
     # Strapi Admin
     location /admin {
         proxy_pass http://localhost:1337;
         proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
+        proxy_set_header Host \$host;
+        proxy_cache_bypass \$http_upgrade;
     }
 
     # Загруженные файлы
@@ -190,8 +195,8 @@ server {
 }
 EOF
 
-# Замена домена в конфиге
-sed -i "s/your-domain.com/$DOMAIN/g" $NGINX_CONFIG
+# Удаление default конфига
+rm -f /etc/nginx/sites-enabled/default
 
 # Создание символической ссылки
 ln -sf $NGINX_CONFIG /etc/nginx/sites-enabled/
@@ -205,22 +210,15 @@ log_info "Перезапуск Nginx..."
 systemctl restart nginx
 systemctl enable nginx
 
-# 10. Настройка SSL (опционально)
-read -p "Хотите настроить SSL сертификат? (y/n): " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    log_info "Настройка SSL сертификата..."
-    certbot --nginx -d $DOMAIN -d www.$DOMAIN --non-interactive --agree-tos --email admin@$DOMAIN
-fi
-
-# 11. Настройка автозапуска PM2
+# 10. Настройка автозапуска PM2
 log_info "Настройка автозапуска PM2..."
 pm2 startup systemd -u root --hp /root
 pm2 save
 
-# 12. Настройка firewall
+# 11. Настройка firewall
 log_info "Настройка firewall..."
-ufw allow 'Nginx Full'
+ufw allow 80/tcp
+ufw allow 443/tcp
 ufw allow OpenSSH
 ufw --force enable
 
@@ -228,9 +226,9 @@ ufw --force enable
 log_info "================================"
 log_info "✅ Деплой завершен успешно!"
 log_info "================================"
-log_info "Frontend: http://$DOMAIN"
-log_info "Backend API: http://$DOMAIN/api"
-log_info "Strapi Admin: http://$DOMAIN/admin"
+log_info "Frontend: http://$SERVER_IP"
+log_info "Backend API: http://$SERVER_IP/api"
+log_info "Strapi Admin: http://$SERVER_IP/admin"
 log_info ""
 log_info "Полезные команды:"
 log_info "  - Просмотр логов Strapi: pm2 logs strapi"
@@ -238,7 +236,12 @@ log_info "  - Перезапуск Strapi: pm2 restart strapi"
 log_info "  - Статус PM2: pm2 status"
 log_info "  - Логи Nginx: tail -f /var/log/nginx/error.log"
 log_info ""
-log_warn "⚠️  Не забудьте:"
-log_warn "  1. Обновить DNS записи для домена $DOMAIN"
-log_warn "  2. Проверить .env файлы в обоих проектах"
-log_warn "  3. Создать первого администратора в Strapi: http://$DOMAIN/admin"
+log_warn "⚠️  Следующие шаги:"
+log_warn "  1. Откройте http://$SERVER_IP/admin"
+log_warn "  2. Создайте первого администратора Strapi"
+log_warn "  3. Добавьте контент через админ-панель"
+log_warn ""
+log_warn "⚠️  Для production рекомендуется:"
+log_warn "  1. Получить доменное имя"
+log_warn "  2. Настроить SSL сертификат"
+log_warn "  3. Настроить регулярные бэкапы"
