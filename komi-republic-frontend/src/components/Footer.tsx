@@ -10,7 +10,7 @@ export default function Footer() {
               <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--primary)' }}>
                 location_on
               </span>
-              <h3 className="text-lg font-bold">Сыктывкар Гид</h3>
+              <h3 className="text-lg font-bold">Сыктывкар</h3>
             </div>
             <p className="footer-brand-text">
               Ваш надежный проводник по культурной столице Республики Коми.
@@ -45,7 +45,7 @@ export default function Footer() {
         
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © 2024 Сыктывкар Гид.
+            © 2026 Сыктывкар.
           </p>
           <p className="footer-copyright">
             Все права защищены.

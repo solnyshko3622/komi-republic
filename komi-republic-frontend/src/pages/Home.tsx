@@ -45,64 +45,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Feature Section (About) */}
-      <section className="section" style={{ backgroundColor: 'var(--background-light)' }}>
-        <div className="container-narrow">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '3rem', alignItems: 'center' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div style={{ height: '4px', width: '3rem', backgroundColor: 'var(--primary)', borderRadius: '9999px' }}></div>
-                <span style={{ color: 'var(--primary)', fontWeight: 700, letterSpacing: '0.05em', fontSize: '0.875rem', textTransform: 'uppercase' }}>О городе</span>
-              </div>
-              <h2 className="section-title" style={{ fontSize: '2.25rem' }}>
-                Северный уют с богатой историей
-              </h2>
-              <p className="section-subtitle" style={{ fontSize: '1.125rem', lineHeight: '1.75' }}>
-                Сыктывкар — это уникальное сочетание богатой истории и современной жизни. Расположенный на левом берегу реки Сысолы, город очаровывает своим северным гостеприимством, уютными улочками и культурным наследием народа коми.
-              </p>
-              <div className="grid grid-cols-2" style={{ gap: '1rem', marginTop: '1rem' }}>
-                <div style={{ display: 'flex', gap: '1rem', padding: '1rem', borderRadius: '0.75rem', backgroundColor: 'white', border: '1px solid var(--slate-100)', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }}>
-                  <div style={{ color: 'var(--primary)', padding: '0.5rem', backgroundColor: 'rgba(19, 127, 236, 0.1)', borderRadius: '0.5rem', height: 'fit-content' }}>
-                    <span className="material-symbols-outlined">theater_comedy</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-2">Культура</h3>
-                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Театры, музеи и галереи, сохраняющие традиции.</p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: '1rem', padding: '1rem', borderRadius: '0.75rem', backgroundColor: 'white', border: '1px solid var(--slate-100)', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }}>
-                  <div style={{ color: 'var(--primary)', padding: '0.5rem', backgroundColor: 'rgba(19, 127, 236, 0.1)', borderRadius: '0.5rem', height: 'fit-content' }}>
-                    <span className="material-symbols-outlined">forest</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-2">Природа</h3>
-                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Живописные парки и северные пейзажи.</p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: '1rem', padding: '1rem', borderRadius: '0.75rem', backgroundColor: 'white', border: '1px solid var(--slate-100)', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }}>
-                  <div style={{ color: 'var(--primary)', padding: '0.5rem', backgroundColor: 'rgba(19, 127, 236, 0.1)', borderRadius: '0.5rem', height: 'fit-content' }}>
-                    <span className="material-symbols-outlined">history_edu</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-2">История</h3>
-                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Старинные здания и памятники архитектуры.</p>
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: '1rem', padding: '1rem', borderRadius: '0.75rem', backgroundColor: 'white', border: '1px solid var(--slate-100)', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }}>
-                  <div style={{ color: 'var(--primary)', padding: '0.5rem', backgroundColor: 'rgba(19, 127, 236, 0.1)', borderRadius: '0.5rem', height: 'fit-content' }}>
-                    <span className="material-symbols-outlined">restaurant</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-2">Гастрономия</h3>
-                    <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Уникальная кухня с дарами северной природы.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Carousel Section */}
       <section className="section" style={{ backgroundColor: 'white' }}>
         <div className="container">

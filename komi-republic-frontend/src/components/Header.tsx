@@ -9,7 +9,7 @@ export default function Header() {
             <div className="header-logo-icon">
               <span className="material-symbols-outlined" style={{ fontSize: '32px' }}>location_on</span>
             </div>
-            <h2 className="header-logo-text">Сыктывкар Гид</h2>
+            <h2 className="header-logo-text">Сыктывкар</h2>
           </Link>
         </div>
         

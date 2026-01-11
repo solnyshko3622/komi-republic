@@ -133,9 +133,6 @@ export default function AttractionDetail() {
           <p className="detail-subtitle">{attraction.categoryRu}</p>
         </div>
         <div className="detail-actions" style={{ position: 'relative' }}>
-          <button className="icon-button">
-            <span className="material-symbols-outlined">favorite</span>
-          </button>
           <button className="icon-button" onClick={toggleShareMenu} title="Поделиться">
             <span className="material-symbols-outlined">share</span>
           </button>
@@ -296,28 +293,6 @@ export default function AttractionDetail() {
                   <div>
                     <p className="info-label">Адрес</p>
                     <p className="info-value">{attraction.address}</p>
-                  </div>
-                </div>
-
-                {/* Hours */}
-                <div className="info-item">
-                  <div style={{ marginTop: '0.125rem', minWidth: '1.25rem' }}>
-                    <span className="material-symbols-outlined info-icon">schedule</span>
-                  </div>
-                  <div>
-                    <p className="info-label">Часы работы</p>
-                    <p className="info-value">{attraction.openingHours || 'Не указано'}</p>
-                  </div>
-                </div>
-
-                {/* Price */}
-                <div className="info-item">
-                  <div style={{ marginTop: '0.125rem', minWidth: '1.25rem' }}>
-                    <span className="material-symbols-outlined info-icon">payments</span>
-                  </div>
-                  <div>
-                    <p className="info-label">Стоимость</p>
-                    <p className="info-value">{attraction.entryFee || 'Не указано'}</p>
                   </div>
                 </div>
 
