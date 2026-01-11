@@ -1,14 +1,6 @@
 // API Service for Django REST Framework backend
 import type { Attraction, Category, Review } from '../types';
 
-// Django REST Framework response types
-interface DjangoListResponse<T> {
-  count?: number;
-  next?: string | null;
-  previous?: string | null;
-  results?: T[];
-}
-
 interface DjangoPlace {
   id: number;
   name: string;
@@ -67,11 +59,9 @@ interface DjangoReview {
 
 // API Service Class
 class ApiService {
-  private baseUrl: string;
   private apiUrl: string;
 
   constructor(baseUrl: string = import.meta.env.VITE_API_URL || 'http://localhost:8000') {
-    this.baseUrl = baseUrl;
     this.apiUrl = `${baseUrl}/api`;
   }
 
