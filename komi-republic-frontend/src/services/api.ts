@@ -61,8 +61,10 @@ interface DjangoReview {
 class ApiService {
   private apiUrl: string;
 
-  constructor(baseUrl: string = import.meta.env.VITE_API_URL || 'http://localhost:8000') {
-    this.apiUrl = `${baseUrl}/api`;
+  constructor(baseUrl: string = import.meta.env.VITE_API_URL || '') {
+    // В production используем относительные URL (пустая строка)
+    // В development используем полный URL из .env
+    this.apiUrl = baseUrl ? `${baseUrl}/api` : '/api';
   }
 
   // Transform Django place to Attraction
