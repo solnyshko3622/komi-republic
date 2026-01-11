@@ -1,86 +1,68 @@
-// API Service for Strapi backend
+// API Service for Django REST Framework backend
 import type { Attraction, Category, Review } from '../types';
 
-// Strapi response types
-interface StrapiResponse<T> {
-  data: T;
-  meta: {
-    pagination?: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
+// Django REST Framework response types
+interface DjangoListResponse<T> {
+  count?: number;
+  next?: string | null;
+  previous?: string | null;
+  results?: T[];
 }
 
-interface StrapiEntity<T> {
+interface DjangoPlace {
   id: number;
-  documentId?: string;
-  attributes?: T;
-  // Strapi v5 может возвращать данные напрямую без attributes
-  [key: string]: any;
-}
-
-interface StrapiPlace {
   name: string;
-  nameRu: string;
+  name_ru: string;
   description: string;
-  descriptionRu: string;
-  category: string;
-  categoryRu: string;
+  description_ru?: string;
+  category_slug: string;
+  category_name_ru: string;
   rating: number;
-  image?: {
-    data?: {
-      attributes: {
-        url: string;
-      };
-    };
-  };
-  images?: {
-    data?: Array<{
-      attributes: {
-        url: string;
-      };
-    }>;
-  };
+  image_url?: string;
   address: string;
-  addressRu: string;
-  openingHours?: string;
-  openingHoursRu?: string;
-  entryFee?: string;
-  entryFeeRu?: string;
-  latitude: number;
-  longitude: number;
+  address_ru?: string;
+  latitude?: number;
+  longitude?: number;
+}
+
+interface DjangoPlaceDetail extends DjangoPlace {
+  category: {
+    id: number;
+    name: string;
+    name_ru: string;
+    slug: string;
+  };
+  images: Array<{
+    id: number;
+    url: string;
+    caption?: string;
+    order: number;
+  }>;
+  opening_hours?: string;
+  opening_hours_ru?: string;
+  entry_fee?: string;
+  entry_fee_ru?: string;
   amenities?: string[];
-  isOpen?: boolean;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+  is_open: boolean;
+  created_at: string;
+  updated_at: string;
 }
 
-interface StrapiCategory {
+interface DjangoCategory {
+  id: number;
   name: string;
-  nameRu: string;
+  name_ru: string;
   slug: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
 }
 
-interface StrapiReview {
+interface DjangoReview {
+  id: number;
+  place: number;
   author: string;
   rating: number;
   comment: string;
   date: string;
-  place?: {
-    data?: {
-      id: number;
-    };
-  };
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+  created_at: string;
 }
 
 // API Service Class
@@ -88,128 +70,98 @@ class ApiService {
   private baseUrl: string;
   private apiUrl: string;
 
-  constructor(baseUrl: string = import.meta.env.VITE_STRAPI_URL || 'http://localhost:1337') {
+  constructor(baseUrl: string = import.meta.env.VITE_API_URL || 'http://localhost:8000') {
     this.baseUrl = baseUrl;
     this.apiUrl = `${baseUrl}/api`;
   }
 
-  // Helper to get full image URL
-  private getImageUrl(url?: string): string {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    return `${this.baseUrl}${url}`;
-  }
-
-  // Transform Strapi place to Attraction
-  private transformPlace(entity: any): Attraction {
-    // Strapi v5 возвращает данные напрямую на верхнем уровне
-    const id = entity.id;
-    const documentId = entity.documentId || id.toString();
-    
-    const mainImage = entity.image?.url;
-    const additionalImages = entity.images?.map((img: any) =>
-      this.getImageUrl(img.url)
-    ) || [];
-
+  // Transform Django place to Attraction
+  private transformPlace(place: DjangoPlace | DjangoPlaceDetail): Attraction {
     return {
-      id: id.toString(),
-      documentId: documentId,
-      name: entity.name || '',
-      nameRu: entity.nameRu || '',
-      description: entity.description || '',
-      category: entity.category?.slug || '',
-      categoryRu: entity.category?.nameRu || '',
-      rating: entity.rating || 0,
-      image: this.getImageUrl(mainImage),
-      images: additionalImages,
-      address: entity.address || '',
-      openingHours: entity.openingHours,
-      entryFee: entity.entryFee,
-      latitude: entity.latitude,
-      longitude: entity.longitude,
+      id: place.id.toString(),
+      documentId: place.id.toString(),
+      name: place.name,
+      nameRu: place.name_ru,
+      description: place.description,
+      category: place.category_slug,
+      categoryRu: place.category_name_ru,
+      rating: place.rating,
+      image: place.image_url || '',
+      images: 'images' in place ? place.images.map(img => img.url) : [],
+      address: place.address,
+      openingHours: 'opening_hours' in place ? place.opening_hours : undefined,
+      entryFee: 'entry_fee' in place ? place.entry_fee : undefined,
+      latitude: place.latitude,
+      longitude: place.longitude,
     };
   }
 
-  // Transform Strapi category to Category
-  private transformCategory(entity: StrapiEntity<StrapiCategory>): Category {
-    // Strapi v5 может возвращать данные напрямую или через attributes
-    const data = entity.attributes || entity;
-    const { id } = entity;
-    
+  // Transform Django category to Category
+  private transformCategory(category: DjangoCategory): Category {
     return {
-      id: id.toString(),
-      name: data.name || '',
-      nameRu: data.nameRu || '',
-      slug: data.slug || '',
+      id: category.id.toString(),
+      name: category.name,
+      nameRu: category.name_ru,
+      slug: category.slug,
     };
   }
 
-  // Transform Strapi review to Review
-  private transformReview(entity: StrapiEntity<StrapiReview>): Review {
-    // Strapi v5 может возвращать данные напрямую или через attributes
-    const data = entity.attributes || entity;
-    const { id } = entity;
-    
+  // Transform Django review to Review
+  private transformReview(review: DjangoReview): Review {
     return {
-      id: id.toString(),
-      attractionId: data.place?.data?.id?.toString() || data.place?.id?.toString() || '',
-      author: data.author || '',
-      rating: data.rating || 0,
-      comment: data.comment || '',
-      date: data.date || '',
+      id: review.id.toString(),
+      attractionId: review.place.toString(),
+      author: review.author,
+      rating: review.rating,
+      comment: review.comment,
+      date: review.date,
     };
   }
 
   // Attractions
   async getAttractions(category?: string, search?: string): Promise<Attraction[]> {
     try {
-      const params = new URLSearchParams({
-        'populate': '*',
-        'pagination[pageSize]': '100',
-      });
+      const params = new URLSearchParams();
 
       // Filter by category if provided
       if (category && category !== 'all') {
-        params.append('filters[category][slug][$eq]', category);
+        params.append('category', category);
       }
 
       // Search filter
       if (search) {
-        params.append('filters[$or][0][name][$containsi]', search);
-        params.append('filters[$or][1][nameRu][$containsi]', search);
-        params.append('filters[$or][2][description][$containsi]', search);
-        params.append('filters[$or][3][descriptionRu][$containsi]', search);
+        params.append('search', search);
       }
 
-      const response = await fetch(`${this.apiUrl}/places?${params.toString()}`);
+      const url = `${this.apiUrl}/places/${params.toString() ? '?' + params.toString() : ''}`;
+      const response = await fetch(url);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const json: StrapiResponse<StrapiEntity<StrapiPlace>[]> = await response.json();
-      return json.data.map(entity => this.transformPlace(entity));
+      const data = await response.json();
+      
+      // Django REST Framework может возвращать либо массив, либо объект с results
+      const places: DjangoPlace[] = Array.isArray(data) ? data : (data.results || []);
+      return places.map(place => this.transformPlace(place));
     } catch (error) {
       console.error('Error fetching attractions:', error);
       return [];
     }
   }
 
-  async getAttractionById(documentId: string): Promise<Attraction | null> {
+  async getAttractionById(id: string): Promise<Attraction | null> {
     try {
-      const params = new URLSearchParams({
-        'populate': '*',
-      });
-
-      const response = await fetch(`${this.apiUrl}/places/${documentId}?${params.toString()}`);
+      const response = await fetch(`${this.apiUrl}/places/${id}/`);
       
       if (!response.ok) {
         if (response.status === 404) return null;
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const json: StrapiResponse<StrapiEntity<StrapiPlace>> = await response.json();
-      return this.transformPlace(json.data);
+      const place: DjangoPlaceDetail = await response.json();
+      return this.transformPlace(place);
     } catch (error) {
       console.error('Error fetching attraction by id:', error);
       return null;
@@ -218,20 +170,14 @@ class ApiService {
 
   async getFeaturedAttractions(limit: number = 4): Promise<Attraction[]> {
     try {
-      const params = new URLSearchParams({
-        'populate': '*',
-        'pagination[pageSize]': limit.toString(),
-        'sort': 'rating:desc',
-      });
-
-      const response = await fetch(`${this.apiUrl}/places?${params.toString()}`);
+      const response = await fetch(`${this.apiUrl}/places/featured/?limit=${limit}`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const json: StrapiResponse<StrapiEntity<StrapiPlace>[]> = await response.json();
-      return json.data.map(entity => this.transformPlace(entity));
+      const places: DjangoPlace[] = await response.json();
+      return places.map(place => this.transformPlace(place));
     } catch (error) {
       console.error('Error fetching featured attractions:', error);
       return [];
@@ -241,24 +187,20 @@ class ApiService {
   // Categories
   async getCategories(): Promise<Category[]> {
     try {
-      const params = new URLSearchParams({
-        'pagination[pageSize]': '100',
-        'sort': 'name:asc',
-      });
-
-      const response = await fetch(`${this.apiUrl}/categories?${params.toString()}`);
+      const response = await fetch(`${this.apiUrl}/categories/`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const json: StrapiResponse<StrapiEntity<StrapiCategory>[]> = await response.json();
+      const data = await response.json();
+      const categories: DjangoCategory[] = Array.isArray(data) ? data : (data.results || []);
       
       // Add "All" category at the beginning
-      const categories = json.data.map(entity => this.transformCategory(entity));
+      const transformedCategories = categories.map(cat => this.transformCategory(cat));
       return [
         { id: '0', name: 'All Places', nameRu: 'Все места', slug: 'all' },
-        ...categories,
+        ...transformedCategories,
       ];
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -269,21 +211,15 @@ class ApiService {
   // Reviews
   async getReviewsByAttractionId(attractionId: string): Promise<Review[]> {
     try {
-      const params = new URLSearchParams({
-        'filters[place][id][$eq]': attractionId,
-        'populate': 'place',
-        'pagination[pageSize]': '100',
-        'sort': 'date:desc',
-      });
-
-      const response = await fetch(`${this.apiUrl}/reviews?${params.toString()}`);
+      const response = await fetch(`${this.apiUrl}/reviews/?place=${attractionId}`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const json: StrapiResponse<StrapiEntity<StrapiReview>[]> = await response.json();
-      return json.data.map(entity => this.transformReview(entity));
+      const data = await response.json();
+      const reviews: DjangoReview[] = Array.isArray(data) ? data : (data.results || []);
+      return reviews.map(review => this.transformReview(review));
     } catch (error) {
       console.error('Error fetching reviews:', error);
       return [];
@@ -293,19 +229,17 @@ class ApiService {
   // Create a new review
   async createReview(review: Omit<Review, 'id'>): Promise<Review | null> {
     try {
-      const response = await fetch(`${this.apiUrl}/reviews`, {
+      const response = await fetch(`${this.apiUrl}/reviews/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          data: {
-            author: review.author,
-            rating: review.rating,
-            comment: review.comment,
-            date: review.date,
-            place: review.attractionId,
-          },
+          place: parseInt(review.attractionId),
+          author: review.author,
+          rating: review.rating,
+          comment: review.comment,
+          date: review.date,
         }),
       });
 
@@ -313,8 +247,8 @@ class ApiService {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      const json: StrapiResponse<StrapiEntity<StrapiReview>> = await response.json();
-      return this.transformReview(json.data);
+      const djangoReview: DjangoReview = await response.json();
+      return this.transformReview(djangoReview);
     } catch (error) {
       console.error('Error creating review:', error);
       return null;

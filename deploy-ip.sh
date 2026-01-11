@@ -103,7 +103,6 @@ if [ ! -f ".env" ]; then
     cat > .env << EOF
 HOST=0.0.0.0
 PORT=1337
-PUBLIC_URL=http://$SERVER_IP
 APP_KEYS=$(openssl rand -base64 32),$(openssl rand -base64 32),$(openssl rand -base64 32),$(openssl rand -base64 32)
 API_TOKEN_SALT=$(openssl rand -base64 32)
 ADMIN_JWT_SECRET=$(openssl rand -base64 32)
@@ -114,12 +113,6 @@ DATABASE_FILENAME=.tmp/data.db
 NODE_ENV=production
 EOF
     log_warn "⚠️  .env файл создан с случайными ключами"
-else
-    # Обновляем PUBLIC_URL если файл уже существует
-    if ! grep -q "PUBLIC_URL" .env; then
-        log_info "Добавление PUBLIC_URL в .env..."
-        echo "PUBLIC_URL=http://$SERVER_IP" >> .env
-    fi
 fi
 
 # Установка зависимостей и сборка
