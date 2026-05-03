@@ -64,7 +64,7 @@ class ApiService {
   constructor(baseUrl: string = import.meta.env.VITE_API_URL || '') {
     // В production используем относительные URL (пустая строка)
     // В development используем полный URL из .env
-    this.apiUrl = baseUrl ? `${baseUrl}/api` : '/api';
+    this.apiUrl = 'http://158.160.155.19:8000/api';
   }
 
   // Transform Django place to Attraction
