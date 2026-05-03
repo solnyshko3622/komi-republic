@@ -28,7 +28,7 @@ export default function Home() {
       <section 
         className="hero"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://drive.google.com/u/1/drive-viewer/AKGpihbn5ZxdS_UNL1g7cBGzzSDaVqQY9DsYPoh3spdAtW1HzywGuAR7UCmKGSwukYcHEUM6JdfsKwfZqIPwasgNr45a3AM01NFPlNA")`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://storage.yandexcloud.net/komi-republic/2026-05-03%2021.37.18.jpg")`
         }}
       >
         <div className="hero-content">
