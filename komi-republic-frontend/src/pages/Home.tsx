@@ -28,7 +28,7 @@ export default function Home() {
       <section 
         className="hero"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://i.ytimg.com/vi/GgHeQ__khvY/maxresdefault.jpg")`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://drive.google.com/file/d/1BFX28IokgN_zORkdmB0U7Di4xyqzjBrq/view?usp=drive_link")`
         }}
       >
         <div className="hero-content">
